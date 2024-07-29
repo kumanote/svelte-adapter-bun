@@ -26,6 +26,7 @@ export default function (opts = {}) {
     dynamic_origin = false,
     xff_depth = 1,
     assets = true,
+    entrypoint = "",
   } = opts;
   return {
     name: "svelte-adapter-bun",
@@ -68,6 +69,12 @@ export default function (opts = {}) {
           BUILD_OPTIONS: JSON.stringify({ development, dynamic_origin, xff_depth, assets }),
         },
       });
+
+      if (entrypoint && existsSync(`${out}/index.js`)) {
+        let indexContent = readFileSync(`${out}/index.js`);
+        indexContent = `${entrypoint}${indexContent}`;
+        writeFileSync(`${out}/index.js`, indexContent);
+      }
 
       let package_data = {
         name: "bun-sveltekit-app",

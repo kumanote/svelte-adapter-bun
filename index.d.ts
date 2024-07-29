@@ -78,6 +78,12 @@ interface AdapterOptions extends BuildOptions {
    * @default ''
    */
   envPrefix?: string;
+
+  /**
+   * If you need to add a `entrypoint` script, you can specify it here.
+   * @default ''
+   */
+  entrypoint?: string;
 }
 
 /**
