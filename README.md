@@ -49,6 +49,7 @@ export default {
       },
       dynamic_origin: true,
       xff_depth: 1,
+      entrypoint: `import "reflect-metadata"\n`,
     }),
   },
 };
@@ -106,6 +107,10 @@ If enabled use `PROTOCOL_HEADER` `HOST_HEADER` like origin. Default: `false`
 ### xff_depth
 
 The default value of XFF_DEPTH if environment is not set. Default: `1`
+
+### entrypoint
+
+`entrypoint` script field that will be added to the top of `${out}/index.js`. Default: `""`
 
 ## :spider_web: WebSocket Server
 
