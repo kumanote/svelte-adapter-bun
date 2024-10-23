@@ -137,6 +137,15 @@ for (const mime in exmimes) {
 }
 
 /**
+ * @param {string} dir
+ * @return {string|null}
+ */
+function extractExtension(dir) {
+  const splitted = dir.split(".");
+  return splitted.length > 1 ? splitted.pop() : null;
+}
+
+/**
  * @param {import("../sirv").Options} opts
  * @param {string} dir
  * @return {import('../sirv').RequestHandler}
@@ -238,7 +247,13 @@ export default function (dir, opts = {}) {
     };
 
     if (gzips || brots) {
-      data.headers.append("Vary", "Accept-Encoding");
+      let fileExt = extractExtension(pathname);
+      if (
+        fileExt !== null &&
+        ["html", "js", "json", "css", "svg", "xml", "wasm"].includes(fileExt)
+      ) {
+        data.headers.append("Vary", "Accept-Encoding");
+      }
     }
 
     if (setHeaders) {
